@@ -1,0 +1,13 @@
+<div class="container">
+  <h1 class="title-lg mt">Вопрос</h1>
+
+  <p class="mt"><%= @question.body %></p>
+  <p class="mt">user_id: <%= @question.user_id %></p>
+  <div class="mt">
+    <%= link_to fa_icon('pencil'), edit_question_path(@question), title: 'Редактировать вопрос' %>
+    <%= button_to fa_icon('trash-o'), question_path(@question), method: :delete, title: 'Удалить вопрос', form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
+  </div>
+
+  <p class="mt"><%= link_to "Все вопросы", "/questions" %></p>
+  <p class="mt text-ssm">ID вопроса в БД: <%= @question.id %></p>
+</div>

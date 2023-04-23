@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 class="title-lg mb">Вопросы</h1>
+  <% @question.each do |question| %>
+    <p class="mt-sm"><%= link_to "Вопрос #{question.id}", question_path(question) %></p>
+<!--    <p class="text-ssm"><%#= "#{question.body}" %></p>-->
+  <% end %>
+
+  <p class="mb mt"><%= link_to "Создать новый вопрос", new_question_path, class: 'button button-main' %></p>
+</div>
