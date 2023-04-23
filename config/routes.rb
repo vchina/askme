@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :questions
-  # post '/questions', to: 'questions#create'
-  # patch '/questions/:id', to: 'questions#update'
-  # delete '/questions/:id', to: 'questions#destroy'
+  put '/questions/:id/hide', to: 'questions#hide'
+  put '/questions/:id/unhide', to: 'questions#unhide'
 end

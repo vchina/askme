@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   # skip_before_action :verify_authenticity_token
-  before_action :set_question, only: %i[show edit update destroy]
+  before_action :set_question, only: %i[show edit update destroy hide unhide]
   def create
     question = Question.create(question_params)
     # debugger
@@ -32,9 +32,19 @@ class QuestionsController < ApplicationController
   def edit
   end
 
+  def hide
+    @question.update(is_hidden: true)
+    redirect_to questions_path
+  end
+
+  def unhide
+    @question.update(is_hidden: false)
+    redirect_to questions_path
+  end
+
   private
   def question_params
-    params.require(:question).permit(:body, :user_id)
+    params.require(:question).permit(:body, :user_id, :is_hidden)
   end
 
   def set_question
