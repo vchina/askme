@@ -29,3 +29,7 @@ a, button {
 .hidden {
   opacity: .3;
 }
+
+.text-grey {
+  color: #a0a0a0;
+}
