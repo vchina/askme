@@ -1,8 +1,15 @@
 class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show edit update destroy hide unhide]
   def create
-    question = Question.create(question_params)
-    redirect_to question_path(question), notice: 'Новый вопрос создан'
+    @question = Question.new(question_params)
+
+    if @question.save
+      redirect_to question_path(@question), notice: 'Новый вопрос создан'
+    else
+      # debugger
+      flash.now[:alert] = 'Вы неправильно заполнили форму создания пароля'
+      render :new
+    end
   end
 
   def update
