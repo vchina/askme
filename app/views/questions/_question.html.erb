@@ -11,8 +11,11 @@
     <div>
       <%= link_to fa_icon('pencil'), edit_question_path(question), title: 'Редактировать вопрос' %>
       <%= button_to fa_icon('trash-o'), question_path(question), method: :delete, title: 'Удалить вопрос', form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
-      <%= button_to fa_icon('eye-slash'), "/questions/#{question.id}/unhide", method: :put, title: 'Вопрос скрыт, нажмите, чтобы показать' if question.is_hidden? %>
-      <%= button_to fa_icon('eye'), "/questions/#{question.id}/hide", method: :put, title: 'Нажмите, чтобы скрыть вопрос' if question.is_hidden == false %>
+      <% if question.is_hidden? %>
+        <%= button_to fa_icon('eye-slash'), unhide_question_path(question), method: :put, title: 'Вопрос скрыт, нажмите, чтобы показать' %>
+      <% else %>
+        <%= button_to fa_icon('eye'), hide_question_path(question), method: :put, title: 'Нажмите, чтобы скрыть вопрос' %>
+      <% end %>
     </div>
   </div>
 </div>
