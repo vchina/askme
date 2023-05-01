@@ -6,7 +6,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to question_path(@question), notice: 'Новый вопрос создан'
     else
-      flash.now[:alert] = 'Есть ошибки при создании пароля'
+      flash.now[:alert] = 'Есть ошибки при создании вопроса'
       render :new
     end
   end
