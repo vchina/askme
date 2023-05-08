@@ -2,20 +2,27 @@
   <%= simple_format sanitize question.body, tags: %w[p] %>
 </div>
 
+<% if question.answer.present? %>
+  <div class="mb-sm text-dark-red">
+    <%= question.answer %>
+  </div>
+<% end %>
+
 <div class="text-sm question-footer">
   <div class="text-grey">
     <%= l(question.created_at, format: :short) %>
   </div>
 
-  <div>
+  <% if current_user == question.user %>
     <div>
-      <%= link_to fa_icon('pencil'), edit_question_path(question), title: 'Редактировать вопрос' %>
-      <%= button_to fa_icon('trash-o'), question_path(question), method: :delete, title: 'Удалить вопрос', form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
+      <% edit_icon = question.answer.present? ? 'reply' : 'pencil' %>
+      <%= link_to fa_icon(edit_icon), edit_question_path(question), class: 'mr-sm', title: 'Редактировать вопрос' %>
+      <%= button_to fa_icon('trash-o'), question_path(question), class: 'mr-sm', method: :delete, title: 'Удалить вопрос', form: {data: {turbo_confirm: 'Точно удалить вопрос?'}} %>
       <% if question.is_hidden? %>
-        <%= button_to fa_icon('eye-slash'), unhide_question_path(question), method: :put, title: 'Вопрос скрыт, нажмите, чтобы показать' %>
+        <%= button_to fa_icon('eye-slash'), unhide_question_path(question), class: 'mr-sm', method: :put, title: 'Вопрос скрыт, нажмите, чтобы показать' %>
       <% else %>
-        <%= button_to fa_icon('eye'), hide_question_path(question), method: :put, title: 'Нажмите, чтобы скрыть вопрос' %>
+        <%= button_to fa_icon('eye'), hide_question_path(question), class: 'mr-sm', method: :put, title: 'Нажмите, чтобы скрыть вопрос' %>
       <% end %>
     </div>
-  </div>
+  <% end %>
 </div>
