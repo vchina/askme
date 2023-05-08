@@ -21,7 +21,7 @@
   </h1>
 </div>
 
-<% @questions.each do |question| %>
+<% @questions.order("created_at DESC").each do |question| %>
   <div class="mt-sm container">
     <%= render question %>
   </div>
