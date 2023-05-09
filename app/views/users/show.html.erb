@@ -8,21 +8,23 @@
   <p class="text-bold mt mb-lg"><%= show_nickname(@user) %></p>
 </div>
 
-<div class="container">
-  <%= link_to 'Спроси меня', new_question_path(user_id: @user.id),
-              class: 'button button-yellow' %>
-  <p class="mt"> <%= render 'questions/form', question: @question %></p>
-</div>
-
-<div class="container mt-sm">
-<h1 class="title-lg mb">
-<%= @questions.count %>
-    <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
-  </h1>
-</div>
-
-<% @questions.order("created_at DESC").each do |question| %>
-  <div class="mt-sm container">
-    <%= render question %>
+<% if @questions.count == 0 %>
+  <%= render 'useremptystate' %>
+<% elsif %>
+  <div class="container">
+    <%= link_to 'Спроси меня', new_question_path(user_id: @user.id),
+                class: 'button button-yellow' %>
+    <p class="mt"> <%= render 'questions/form', question: @question %></p>
   </div>
+  <div class="container mt-sm">
+    <h1 class="title-lg mb">
+    <%= @questions.count %> <%= inclination(@questions.count, 'вопрос', 'вопроса', 'вопросов') %>
+    </h1>
+  </div>
+
+  <% @questions.order("created_at DESC").each do |question| %>
+    <div class="mt-sm container">
+      <%= render question %>
+    </div>
+  <% end %>
 <% end %>
