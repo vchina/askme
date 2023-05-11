@@ -8,7 +8,7 @@ class QuestionsController < ApplicationController
     @question.author_id = current_user&.id
     
     if @question.save
-      redirect_to user_path(@question.user), notice: 'Новый вопрос создан'
+      redirect_to user_path(@question.user.nickname), notice: 'Новый вопрос создан'
     else
       flash.now[:alert] = 'Есть ошибки при создании вопроса'
       render :new
@@ -18,13 +18,13 @@ class QuestionsController < ApplicationController
   def update
     question_params = params.require(:question).permit(:body, :answer)
     @question.update(question_params)
-    redirect_to user_path(@question.user), notice: 'Вопрос обновлён'
+    redirect_to user_path(@question.user.nickname), notice: 'Вопрос обновлён'
   end
 
   def destroy
     @user= @question.user
     @question.destroy
-    redirect_to user_path(@user), notice: 'Вопрос удалён'
+    redirect_to user_path(@user.nickname), notice: 'Вопрос удалён'
   end
 
   def show
@@ -32,12 +32,12 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.all
-    @question = Question.new
+    @questions = Question.order(created_at: :desc).last(10)
+    @users = User.order(created_at: :desc).last(10)
   end
 
   def new
-    @user = User.find(params[:user_id])
+    @user = User.find_by(nickname: params[:nickname])
     @question = Question.new(user: @user)
   end
 

@@ -10,5 +10,7 @@
  *= require message
  *= require question
  *= require user
+ *= require users
+ *= require utils
 
  */
