@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Askme</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body>
+<div class="wrapper">
+
+  <div class="navbar" style="background-color: <%= navbar_bg_color %>">
+    <p class="title-sm text-bold"><%= link_to "Ask me!", root_path %></p>
+  </div>
+
+  <%= yield %>
+
+</div>
+</body>
+</html>
